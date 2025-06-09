@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "expo_wakeword",
+    "slug": "expo_wakeword",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.oferfryman.expo-wakeword"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.oferfryman.expo_wakeword"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

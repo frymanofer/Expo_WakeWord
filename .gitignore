@@ -93,7 +93,7 @@ coverage/*
 
 ios/Podfile.lock
 # Expo
-.expo
+expo_example/
 dist/
 web-build/
 fastlane/report.xml
@@ -198,3 +198,12 @@ example_car_parking/ios/Pods/**
 example**/android/app/.cxx/*
 example/.yarn/*
 example**/.yarn/*
+example/App.tsx.expo_org
+example/App.tsx.expovoice
+example/android/.gitignore
+Audio Permission Prompt.jpeg
+Listening for Wake Word.jpeg
+Microphone Settings.jpeg
+must_do.txt
+MyLibrary-release.aar
+Wake Word Detected.jpeg
