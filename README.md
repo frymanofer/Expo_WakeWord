@@ -25,6 +25,11 @@ Speech to Intent is often triggered after a wake word activates the app, making 
 component of more advanced voice-controlled applications. This layered approach allows for
 seamless and intuitive voice-driven user experiences.
 
+## **LICENSING**
+Please note that while the code in this repo has a type of "free" license it contains DaVoice.io propietary SDK which requires a license as follows:
+1. Free license for individuals or small start up in their early stages. To obtain the license you will need to contact info@davoice.io
+2. Commerical license otherwise.
+
 ## Latest news
 
 - **New 8 June 2025**:
