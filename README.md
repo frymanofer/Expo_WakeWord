@@ -40,7 +40,7 @@ This is the first release of **Expo wake word and voice commands** it is limited
 ## Features
 
 - **Easy to deploy with Expo (React-Native):** Check out our example: "rn_example/DetectingKeyWords.js". With a few simple lines of code, you have your own keyword detecting enabled app.
-- **Cross-Platform Support:** Integrate Davoice KeywordsDetection into React-Native Framework. Both iOS and Android are supported.
+- **Cross-Platform Support:** Integrate Davoice KeywordsDetection into **Expo** React-Native Framework. Both iOS and Android are supported.
 - **Low Latency:** Experience near-instantaneous keyword detection.
 - **High Accuracy:** We have succesfully reached over 99% accurary for all our models. **Here is on of our customer's benchmarks**:
 - **Real-World Benchmarks:** At DaVoice, we believe in real benchmarks done by customers on actual use cases rather than static tests. We actively encourage our customers to share their real-world experiences and results.
@@ -91,8 +91,8 @@ Third          0.626697
 
 ## Platforms and Supported Languages
 
-- **React-Native Android:** Expo (React-Native) Wrapper for Android.
-- **React-Native iOS:** Expo (React-Native) Wrapper for iOS.
+- **Expo/React-Native Android:** Expo (React-Native) Wrapper for Android.
+- **Expo/React-Native iOS:** Expo (React-Native) Wrapper for iOS.
 
 # Wake word generator
 
@@ -157,7 +157,7 @@ In order to generate your custom wake word you will need to:
 
 ## Contact
 
-For any questions, requirements, or more support for React-Native, please contact us at info@davoice.io.
+For any questions, requirements, or more support for Expo, please contact us at info@davoice.io.
 
 ## Installation and Usage
 
@@ -208,262 +208,6 @@ To run the demo:
 
 Run 'npm install'
 
-3. Navigate to the example directory:
-   ```
-   cd example_npm
-   ```
-
-4. For Android:
-   ```
-   npx react-native run-android
-   ```
-   Depending on your system, you may be required to press "a" for Android.
-
-   **Note:** If you don't have an Android environment setup (Gradle, Android device or Emulator, Java, etc.) and need help, please contact us at ofer@davoice.io.
-
-5. For iOS:
-   ```
-   npx react-native run-ios
-   ```
-   Depending on your system, you may be required to press "i" for iOS.
-
-   You may need to:
-
-   cd ios && pod cache clean --all && pod deintegrate && pod install --repo-update
-   
-   Than open Xcode and run in Xcode
-   **Note:** If you don't have an iOS environment setup (Xcode, CocoaPods, iOS device or Emulator, etc.) and need help, please contact us at ofer@davoice.io.
-
-## Screenshots from the demo App
-
-1. **Make sure you allow Audio Permission**
-   The app need to ask Audio permission, make sure you allow it as it is necessary for wake word detection.
-   
-   <img src="./Audio%20Permission%20Prompt.jpeg" alt="Audio Permission Prompt" width="300"/></br>
-
-2. **If You are using Android Emulator - make sure you enable Microphone as below:**
-   The settings screen showing virtual microphone configuration in the Android emulator.
-
-   <img src="./Microphone%20Settings.jpeg" alt="Microphone Settings" width="300"/></br>
-
-3. **Listening for Wake Word:**
-   The app is actively listening for the wake word "Need Help Now."
-
-   <img src="./Listening%20for%20Wake%20Word.jpeg" alt="Listening for Wake Word" width="300"/></br>
-
-4. **Wake Word Detected:**
-   The app has detected the wake word "Need Help Now."
-
-   <img src="./Wake%20Word%20Detected.jpeg" alt="Wake Word Detected" width="300"/></br>
-
-### Usage Example
-
-**For simple installation go to example_npm** and build the Expo (React-Native) example based on package.json
-
-**For example working in the background on both IOS and Android go to example or example_car_parking** and build the Expo (React-Native) app based on package.json
-
-Below is an example, however. **the best thing is to look at the update code in one of the example folders**
-
-Here is "wake word" detection example using npm install react-native-wakeword:
-
-```javascript
-//import useModel from react-native-wakeword;
-import useModel from 'react-native-wakeword';
-
-// Declare your wake word models:
-// Using the below interface:
-interface instanceConfig {
-  id: string;
-  modelName: string;
-  threshold: number;
-  bufferCnt: number;
-  sticky: boolean;
-}
-// Create an array of instance configurations or "wake words"
-const instanceConfigs:instanceConfig[] = [
-  { id: 'need_help_now', modelName: 'need_help_now.onnx', threshold: 0.9999, bufferCnt: 3 , sticky: false },
-  { id: 'default', modelName: "", threshold: 0.9999, bufferCnt: 2 , sticky: false }
-];
-
-function App(): React.JSX.Element {
-   // ....
-    // your code ....
-    // Load the wake word functionality:
-   const { stopListening, loadModel, setKeywordDetectionLicense} = useModel();
-   //...
-
-   // Declare your wake word callback:
-    const keywordCallback = async (keywordIndex: any) => {
-    //...
-
-    const initializeKeywordDetection = async () => {
-      try {
-        // Wait for audio permission to be granted
-        // Call your audio permission function await AudioPermissionComponent();
-	// Setup the license
-	await setKeywordDetectionLicense(
-          "MTczNDIxMzYwMDAwMA==-tNV5HJ3NTRQCs5IpOe0imza+2PgPCJLRdzBJmMoJvok=");
-        // Load the models - also starts listening.  
-        await loadModel(instanceConfigs, keywordCallback);
-      } catch (error) {
-        console.error('Error during keyword detection initialization:', error);
-      }
-    };
-    // Call initialization
-    initializeKeywordDetection();  // Call the async function inside useEffect
-
-```
-
-
-Below is a simple JavaScript code showing how to use Davoice KeywordsDetection:
-
-```javascript
-// Import the main class
-
-import { KeyWordRNBridgeInstance } from 'react-native-wakeword'; 
-import removeAllRNBridgeListeners from 'react-native-wakeword'; 
-import { createKeyWordRNBridgeInstance } from 'react-native-wakeword'; 
-
-
-interface instanceConfig {
-  id: string;
-  modelName: string;
-  threshold: number;
-  bufferCnt: number;
-  sticky: boolean;
-}
-  // Create an array of instance configurations
-  const instanceConfigs:instanceConfig[] = [
-    { id: 'my_wake_word', modelName: 'my_wake_word.onnx', threshold: 0.9999, bufferCnt: 3 , sticky: false },
-  ];
-
-// Function to add a new instance dynamically
-//async function addInstance(conf: instanceConfig) 
-async function addInstance(
-  conf: instanceConfig): Promise<KeyWordRNBridgeInstance> {
-  const id = conf.id;
-  const instance = await createKeyWordRNBridgeInstance(id, false);
-
-  if (!instance) {
-      console.error(`Failed to create instance ${id}`);
-  }
-  console.log(`Instance ${id} created ${instance}`);
-  await instance.createInstance(conf.modelName, conf.threshold, conf.bufferCnt);
-  console.log(`Instance ${id} createInstance() called`);
-  return instance;
-}
-
-async function set_callback(instance: KeyWordRNBridgeInstance, callback: (phrase: string) => void) { 
-  const eventListener = instance.onKeywordDetectionEvent((phrase: string) => {
-    phrase = formatWakeWord(instance.instanceId);
-    console.log(`Instance ${instance.instanceId} detected: ${instance.instanceId} with phrase`, phrase);
-    // callback(phrase); Does not work on IOS
-    callback(phrase);
-  });
-  console.log("eventListener == ", eventListener);
-  return eventListener;
-}
-
-// Function to remove the event listener
-function removeEventListener(eventListener: any) {
-  if (eventListener && typeof eventListener.remove === 'function') {
-    eventListener.remove();
-  }
-  else {
-    console.error("event listener.remove does not exist!!!!");
-  }
-}
-
-  let myInstance: KeyWordRNBridgeInstance;
-  let eventListener: any;
-...
-  const [isPermissionGranted, setIsPermissionGranted] = useState(false); // Track permission status
-...
-  useEffect(() => {
-// Get permissions ....
-
-    const handleAppStateChange = async (nextAppState) => {
-      if (nextAppState === 'active') {
-        try {
-          await AudioPermissionComponent();
-          setIsPermissionGranted(true);
-        } catch (error) {
-          console.error("Error requesting permissions:", error);
-        }
-      }
-    };
-
-  }, []);
-
-  useEffect(() => {
-
-    // Setup your callback
-    const keywordCallback = async (keywordIndex: any) => {
-      // Stop detection
-      await myInstance.stopKeywordDetection();
-      
-      // remove the Expo (React-Native) listener!!!
-      removeEventListener(eventListener);
-
-      console.log ("detected keyword: ", keywordIndex);
-      setMessage(`WakeWord '${keywordIndex}' DETECTED`);
-      setIsFlashing(true);  // Start flashing effect (Line 122)
-
-      const timeout = setTimeout(async () => {
-        console.log('5 seconds have passed!');
-        setMessage(`Listening to WakeWord '${wakeWord}'...`);
-        setIsFlashing(false);  // Start flashing effect (Line 122)
-        // Perform your action here
-        // Stop detection
-        eventListener = await set_callback(myInstance, keywordCallback);
-        await myInstance.startKeywordDetection(instanceConfigs[0].threshold);
-        // remove the listener and callback
-      }, 5000);
-    }
-
-    const initializeKeywordDetection = async () => {
-      try {
-        console.log('Adding element:', instanceConfigs[0]);
-        // create your instance
-        myInstance = await addInstance(instanceConfigs[0]);
-      } catch (error) {
-          console.error("Error loading model:", error);
-          return;
-      }
-      try {        
-        // Setup your callback
-        eventListener = await set_callback(myInstance, keywordCallback);
-        // Set the License
-        const isLicensed = await myInstance.setKeywordDetectionLicense(
-          "MTc0NDY2NDQwMDAwMA==-m4g05tL50nMcnOp4mu6NghsgkfXk1ZNVTPo26+2/Z0E=");
-        await myInstance.startKeywordDetection(instanceConfigs[0].threshold);
-        if (!isLicensed) {
-          console.error("No License!!! - setKeywordDetectionLicense returned", isLicensed);
-        }
-          
-      } catch (error) {
-        console.error('Error during keyword detection initialization:', error);
-      }
-    };
-    // Make sure you initialize only once
-    if (!calledOnce) {
-      calledOnce = true;
-      console.log("Calling initializeKeywordDetection();");
-      initializeKeywordDetection();
-      console.log("After calling AudioPermissionComponent();");
-    }
-
-}, [isPermissionGranted]); // Only call this when you have permissions
-
-
-```
-
-## Benchmark.
-
-Our customers have benchmarked our technology against leading solutions, including Picovoice Porcupine, Snowboy, Pocketsphinx, Sensory, and others. 
-In several tests, our performance was comparable to Picovoice Porcupine, occasionally surpassing it, however both technologies consistently outperformed all others in specific benchmarks. 
-For detailed references or specific benchmark results, please contact us at ofer@davoice.io.
-
 ## Activating Microphone while the app operates in the background or during shutdown/closure.
 This example in the Git repository enables Android functionality in both the foreground and background, and iOS functionality in the foreground. However, we have developed an advanced SDK that allows the microphone to be activated from a complete shutdown state on Android and from the background state on iOS. If you require this capability for your app, please reach out to us at ofer@davoice.io.
 
@@ -505,7 +249,7 @@ DaVoice.io Voice commands / Wake words / Voice to Intent / keyword detection npm
 “Voice triggered”
 “hotword”
 “trigger word”
-"react-native wake word",
+"Expo wake word",
 "Wake word detection github",
 "Wake word generator",
 "Custom wake word",
@@ -522,7 +266,7 @@ DaVoice.io Voice commands / Wake words / Voice to Intent / keyword detection npm
 "Davoice.io wake word",
 "Davoice wake word",
 "Davoice Expo (React-Native) wake word",
-"Davoice react-native wake word",
+"Davoice Expo wake word",
 "wake",
 "word",
 "Voice Commands Recognition",
